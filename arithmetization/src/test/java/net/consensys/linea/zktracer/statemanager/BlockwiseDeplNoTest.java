@@ -46,7 +46,7 @@ public class BlockwiseDeplNoTest {
             // Reverted operations only have 1 log
             List.of(2, 2, 2, 2,
                     2, 2,
-                    2, 2)
+                    2, 2, 1, 2, 1)
     );
     // fetch the Hub metadata for the state manager maps
     StateManagerMetadata stateManagerMetadata = Hub.stateManagerMetadata();
@@ -66,9 +66,12 @@ public class BlockwiseDeplNoTest {
                       tc.deployWithCreate2(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.frameworkEntryPointAddress, tc.salts[1], TestContext.snippetsCodeForCreate2, false),
                       tc.selfDestruct(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.newAddresses[1], tc.frameworkEntryPointAddress, false, BigInteger.ONE)
               ))
-              .addBlock(List.of(
+              .addBlock(List.of( // test some reverted calls
                       tc.deployWithCreate2(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.frameworkEntryPointAddress, tc.salts[2], TestContext.snippetsCodeForCreate2, false),
-                      tc.selfDestruct(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.newAddresses[2], tc.frameworkEntryPointAddress, false, BigInteger.ONE)
+                      tc.selfDestruct(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.newAddresses[2], tc.frameworkEntryPointAddress, false, BigInteger.ONE),
+                      tc.deployWithCreate2(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.frameworkEntryPointAddress, tc.salts[2], TestContext.snippetsCodeForCreate2, true),
+                      tc.deployWithCreate2(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.frameworkEntryPointAddress, tc.salts[2], TestContext.snippetsCodeForCreate2, false),
+                      tc.selfDestruct(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.newAddresses[2], tc.frameworkEntryPointAddress, true, BigInteger.ONE)
               ))
               .transactionProcessingResultValidator(resultValidator)
               .build()
@@ -115,7 +118,7 @@ public class BlockwiseDeplNoTest {
             {
                     null,
                     null,
-                    2
+                    5
             },
 
 
