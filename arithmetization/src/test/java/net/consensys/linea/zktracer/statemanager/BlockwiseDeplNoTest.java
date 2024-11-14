@@ -45,6 +45,7 @@ public class BlockwiseDeplNoTest {
             // Creates, writes, reads and self-destructs generate 2 logs,
             // Reverted operations only have 1 log
             List.of(2, 2, 2, 2,
+                    2, 2,
                     2, 2)
     );
     // fetch the Hub metadata for the state manager maps
@@ -57,11 +58,18 @@ public class BlockwiseDeplNoTest {
               // Block 1
               .addBlock(List.of(
                       tc.deployWithCreate2(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.frameworkEntryPointAddress, tc.salts[0], TestContext.snippetsCodeForCreate2),
+                      tc.selfDestruct(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.newAddresses[0], tc.frameworkEntryPointAddress, false, BigInteger.ONE),
+                      tc.deployWithCreate2(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.frameworkEntryPointAddress, tc.salts[0], TestContext.snippetsCodeForCreate2),
                       tc.selfDestruct(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.newAddresses[0], tc.frameworkEntryPointAddress, false, BigInteger.ONE)
               ))
               .addBlock(List.of(
                       tc.deployWithCreate2(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.frameworkEntryPointAddress, tc.salts[1], TestContext.snippetsCodeForCreate2),
-                      tc.selfDestruct(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.newAddresses[1], tc.frameworkEntryPointAddress, false, BigInteger.ONE)                      ))
+                      tc.selfDestruct(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.newAddresses[1], tc.frameworkEntryPointAddress, false, BigInteger.ONE)
+              ))
+              .addBlock(List.of(
+                      tc.deployWithCreate2(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.frameworkEntryPointAddress, tc.salts[2], TestContext.snippetsCodeForCreate2),
+                      tc.selfDestruct(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.newAddresses[2], tc.frameworkEntryPointAddress, false, BigInteger.ONE)
+              ))
               .transactionProcessingResultValidator(resultValidator)
               .build()
               .run();
@@ -74,33 +82,49 @@ public class BlockwiseDeplNoTest {
 
     // prepare data for asserts
     // expected first values for the keys we are testing
-    int noBlocks = 2;
+    int noBlocks = 3;
     Integer[][] expectedMin = {
             {
                 1,
+                null,
                 null
             },
             {
                   null,
-                  1
+                  1,
+                  null
+            },
+            {
+                    null,
+                    null,
+                    1
             },
     };
     // expected last values for the keys we are testing
     Integer[][] expectedMax = {
             {
-                    2,
+                    4,
+                    null,
                     null,
             },
             {
                     null,
                     2,
+                    null,
             },
+            {
+                    null,
+                    null,
+                    2
+            },
+
 
     };
       // prepare the key pairs
       Address[] keys = {
               tc.newAddresses[0],
               tc.newAddresses[1],
+              tc.newAddresses[2],
       };
 
 
