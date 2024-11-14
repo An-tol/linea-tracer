@@ -72,6 +72,7 @@ public class BlockwiseDeplNoTest {
                       tc.deployWithCreate2(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.frameworkEntryPointAddress, tc.salts[2], TestContext.snippetsCodeForCreate2, true),
                       tc.deployWithCreate2(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.frameworkEntryPointAddress, tc.salts[2], TestContext.snippetsCodeForCreate2, false),
                       tc.selfDestruct(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.newAddresses[2], tc.frameworkEntryPointAddress, true, BigInteger.ONE)
+                      // since the last self-destruct gets reverted, the last call will not increase the deplNo
               ))
               .transactionProcessingResultValidator(resultValidator)
               .build()
@@ -118,7 +119,7 @@ public class BlockwiseDeplNoTest {
             {
                     null,
                     null,
-                    5
+                    4
             },
 
 
