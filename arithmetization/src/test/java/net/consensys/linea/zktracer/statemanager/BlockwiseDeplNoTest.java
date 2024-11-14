@@ -57,17 +57,17 @@ public class BlockwiseDeplNoTest {
               .accounts(List.of(tc.initialAccounts[0], tc.externallyOwnedAccounts[0], tc.initialAccounts[2], tc.frameworkEntryPointAccount))
               // Block 1
               .addBlock(List.of(
-                      tc.deployWithCreate2(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.frameworkEntryPointAddress, tc.salts[0], TestContext.snippetsCodeForCreate2),
+                      tc.deployWithCreate2(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.frameworkEntryPointAddress, tc.salts[0], TestContext.snippetsCodeForCreate2, false),
                       tc.selfDestruct(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.newAddresses[0], tc.frameworkEntryPointAddress, false, BigInteger.ONE),
-                      tc.deployWithCreate2(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.frameworkEntryPointAddress, tc.salts[0], TestContext.snippetsCodeForCreate2),
+                      tc.deployWithCreate2(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.frameworkEntryPointAddress, tc.salts[0], TestContext.snippetsCodeForCreate2,false),
                       tc.selfDestruct(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.newAddresses[0], tc.frameworkEntryPointAddress, false, BigInteger.ONE)
               ))
               .addBlock(List.of(
-                      tc.deployWithCreate2(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.frameworkEntryPointAddress, tc.salts[1], TestContext.snippetsCodeForCreate2),
+                      tc.deployWithCreate2(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.frameworkEntryPointAddress, tc.salts[1], TestContext.snippetsCodeForCreate2, false),
                       tc.selfDestruct(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.newAddresses[1], tc.frameworkEntryPointAddress, false, BigInteger.ONE)
               ))
               .addBlock(List.of(
-                      tc.deployWithCreate2(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.frameworkEntryPointAddress, tc.salts[2], TestContext.snippetsCodeForCreate2),
+                      tc.deployWithCreate2(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.frameworkEntryPointAddress, tc.salts[2], TestContext.snippetsCodeForCreate2, false),
                       tc.selfDestruct(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.newAddresses[2], tc.frameworkEntryPointAddress, false, BigInteger.ONE)
               ))
               .transactionProcessingResultValidator(resultValidator)

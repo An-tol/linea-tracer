@@ -46,7 +46,7 @@ public class UtilitiesTest {
             .addBlock(List.of(tc.transferTo(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.addresses[0], tc.addresses[2], 8L, false, BigInteger.ONE)))
             // test operations above, before self-destructing a snippet in the next line
             .addBlock(List.of(tc.selfDestruct(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.addresses[0], tc.frameworkEntryPointAddress, false, BigInteger.ONE))) // use BigInteger.ONE, otherwise the framework entry point gets destroyed
-            .addBlock(List.of(tc.deployWithCreate2(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.frameworkEntryPointAddress, "0x0000000000000000000000000000000000000000000000000000000000000002", TestContext.snippetsCodeForCreate2)))
+            .addBlock(List.of(tc.deployWithCreate2(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.frameworkEntryPointAddress, "0x0000000000000000000000000000000000000000000000000000000000000002", TestContext.snippetsCodeForCreate2, false)))
             .transactionProcessingResultValidator(resultValidator)
             .build()
             .run();
@@ -71,7 +71,8 @@ public class UtilitiesTest {
                             tc.keyPairs[0],
                             tc.frameworkEntryPointAddress,
                             "0x0000000000000000000000000000000000000000000000000000000000004312",
-                            TestContext.snippetsCodeForCreate2)))
+                            TestContext.snippetsCodeForCreate2,
+                            false)))
             .transactionProcessingResultValidator(resultValidator)
             .build()
             .run();

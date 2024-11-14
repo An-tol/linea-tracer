@@ -62,17 +62,17 @@ public class ConflationAccountTest {
             .addBlock(List.of(tc.transferTo(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.addresses[0], tc.addresses[2], 50L, true, BigInteger.ONE))) // this action is reverted
             .addBlock(List.of(tc.transferTo(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.addresses[0], tc.addresses[2], 10L, false, BigInteger.ONE)))
             // deploy another account ctxt.addresses[3] and perform account operations on it
-            .addBlock(List.of(tc.deployWithCreate2(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.frameworkEntryPointAddress, tc.salts[0], TestContext.snippetsCodeForCreate2)))
+            .addBlock(List.of(tc.deployWithCreate2(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.frameworkEntryPointAddress, tc.salts[0], TestContext.snippetsCodeForCreate2, false)))
             .addBlock(List.of(tc.transferTo(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.addresses[0], tc.newAddresses[0], 49L, false, BigInteger.ONE)))
             .addBlock(List.of(tc.transferTo(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.newAddresses[0], tc.addresses[0], 27L, false, BigInteger.ONE)))
             // deploy another account and self destruct it at the end, redeploy it and change its balance  again
-            .addBlock(List.of(tc.deployWithCreate2(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.frameworkEntryPointAddress, tc.salts[1], TestContext.snippetsCodeForCreate2)))
+            .addBlock(List.of(tc.deployWithCreate2(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.frameworkEntryPointAddress, tc.salts[1], TestContext.snippetsCodeForCreate2, false)))
             .addBlock(List.of(tc.transferTo(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.addresses[0], tc.newAddresses[1], 98L, false, BigInteger.ONE)))
             .addBlock(List.of(tc.selfDestruct(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.newAddresses[1], tc.addresses[2], false, BigInteger.ONE)))
-            .addBlock(List.of(tc.deployWithCreate2(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.frameworkEntryPointAddress, tc.salts[1], TestContext.snippetsCodeForCreate2)))
+            .addBlock(List.of(tc.deployWithCreate2(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.frameworkEntryPointAddress, tc.salts[1], TestContext.snippetsCodeForCreate2, false)))
             .addBlock(List.of(tc.transferTo(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.addresses[0], tc.newAddresses[1], 123L, false, BigInteger.ONE)))
             // deploy a new account and check revert operations on it
-            .addBlock(List.of(tc.deployWithCreate2(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.frameworkEntryPointAddress, tc.salts[2], TestContext.snippetsCodeForCreate2)))
+            .addBlock(List.of(tc.deployWithCreate2(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.frameworkEntryPointAddress, tc.salts[2], TestContext.snippetsCodeForCreate2, false)))
             .addBlock(List.of(tc.transferTo(tc.externallyOwnedAccounts[0], tc.keyPairs[0], tc.addresses[2], tc.newAddresses[2], 1L, true, BigInteger.ONE)))
             .transactionProcessingResultValidator(resultValidator)
             .build()
