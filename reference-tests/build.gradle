@@ -60,6 +60,7 @@ tasks.register('referenceBlockchainTests', Test) {
   environment.put("REFERENCE_TEST_OUTCOME_OUTPUT_FILE", "BlockchainReferenceTestOutcome.json")
 
   boolean isCiServer = System.getenv().containsKey("CI")
+  System.out.print("Test gha env CI " + isCiServer)
   minHeapSize = isCiServer ? "8g" :"4g"
   maxHeapSize = isCiServer ? "50g" : "8g"
 
