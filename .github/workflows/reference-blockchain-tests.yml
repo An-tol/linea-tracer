@@ -20,7 +20,7 @@ on:
 
 jobs:
   blockchain-reference-tests:
-    runs-on: [ubuntu-latest-128]
+    runs-on: [ubuntu-latest-256]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -43,7 +43,7 @@ jobs:
         run: cd ./linea-constraints; make zkevm_for_reference_tests.bin -B; cd ..
 
       - name: Generate block chain reference tests
-        run:  ./gradlew :reference-tests:generateBlockchainReferenceTests -Dorg.gradle.parallel=true -Dorg.gradle.caching=true
+        run: ./gradlew :reference-tests:generateBlockchainReferenceTests -Dorg.gradle.parallel=true -Dorg.gradle.caching=true
         env:
           JAVA_OPTS: -Dorg.gradle.daemon=false
           CORSET_FLAGS: fields,expand,expand,expand
@@ -63,10 +63,10 @@ jobs:
         run: mv ${{ github.workspace }}/tmp/${{ steps.extract_branch.outputs.branch }}/failedBlockchainReferenceTests.json ${{ github.workspace }}/tmp/${{ steps.extract_branch.outputs.branch }}/failedBlockchainReferenceTests-input.json
 
       - name: Run reference blockchain tests
-        run: ./gradlew referenceBlockchainTests -x spotlessCheck
+        run: GOMEMLIMIT=196GiB ./gradlew referenceBlockchainTests -x spotlessCheck
         timeout-minutes: 180
         env:
-          REFERENCE_TESTS_PARALLELISM: 2
+          REFERENCE_TESTS_PARALLELISM: 1
           JAVA_OPTS: -Dorg.gradle.daemon=false
           CORSET_FLAGS: disable
           GOCORSET_FLAGS: -wd --ansi-escapes=false --report --air

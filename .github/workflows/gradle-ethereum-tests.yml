@@ -31,7 +31,7 @@ jobs:
       - name: Run General State Reference Tests
         run: ./gradlew referenceGeneralStateTests
         env:
-          REFERENCE_TESTS_PARALLELISM: 4
+          REFERENCE_TESTS_PARALLELISM: 10
           JAVA_OPTS: -Dorg.gradle.daemon=false
           CORSET_FLAGS: fields,expand,expand,expand
 
