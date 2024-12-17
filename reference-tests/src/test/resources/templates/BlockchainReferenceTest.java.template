@@ -64,10 +64,6 @@ public class %%TESTS_NAME%% {
       final String name,
       final BlockchainReferenceTestCaseSpec spec,
       final boolean runTest) {
-        String[] id = this.getClass().getSimpleName().split("_");
-        if(id.length>=2 && (Integer.valueOf(id[1]) > 400 && Integer.valueOf(id[1]) <= 200)){
-          return ;
-        }
     assumeTrue(runTest, "Test " + name + " was ignored");
     executeTest(spec);
   }
