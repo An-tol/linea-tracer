@@ -78,7 +78,16 @@ public class TestOutcomeWriterTool {
       log.error("Error - Failed to create test directory output: %s".formatted(e.getMessage()));
       throw new RuntimeException(e);
     }
+
     try (FileWriter file = new FileWriter(Path.of(fileDirectory, name).toString())) {
+      System.out.println(objectMapper.writeValueAsString(
+              new TestOutcome(
+                      failedCounter.get(),
+                      successCounter.get(),
+                      disabledCounter.get(),
+                      abortedCounter.get(),
+                      modulesToConstraintsToTests)));
+
       objectMapper.writeValue(
           file,
           new TestOutcome(
