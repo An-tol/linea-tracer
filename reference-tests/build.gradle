@@ -60,8 +60,8 @@ tasks.register('referenceBlockchainTests', Test) {
   environment.put("REFERENCE_TEST_OUTCOME_OUTPUT_FILE", "BlockchainReferenceTestOutcome.json")
 
   boolean isCiServer = System.getenv().containsKey("CI")
-  minHeapSize = isCiServer ? "60g" :"14g"
-  maxHeapSize = isCiServer ? "60g" : "24g"
+  minHeapSize = isCiServer ? "50g" :"14g"
+  maxHeapSize = isCiServer ? "50g" : "24g"
 
   useJUnitPlatform {
     includeTags("BlockchainReferenceTest")
