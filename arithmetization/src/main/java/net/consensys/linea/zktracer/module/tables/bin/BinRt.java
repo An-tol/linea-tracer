@@ -60,18 +60,10 @@ public class BinRt implements Module {
       final UnsignedByte input1UByte2 = BytesFactory.unsignedOf(input1);
 
       for (short input2 = 0; input2 <= 255; input2++) {
-//        final Bytes input2Bytes = Bytes.of(input2);
-//        final UnsignedByte input2UByte = UnsignedByte.of(input2);
         final Bytes input2Bytes2 = BytesFactory.of(input2);
         final UnsignedByte input2UByte2 = BytesFactory.unsignedOf(input2);
         final UnsignedByte result = BytesFactory.and(input1Bytes2,input2Bytes2);
-//        if(!(input2Bytes2.equals(input2Bytes)||input2UByte2.equals(input2UByte))){
-//          log.error("here");
-//        }
-//
 
-//
-//        final UnsignedByte result = BytesFactory.unsignedOf(input1Bytes.and(input2Bytes).get(0));
         trace
             .inst(opCode)
             .resultByte(result)
@@ -85,14 +77,14 @@ public class BinRt implements Module {
     opCode = UnsignedByte.of(OpCode.OR.byteValue());
 
     for (short input1 = 0; input1 <= 255; input1++) {
-      final Bytes input1Bytes = Bytes.of(input1);
-      final UnsignedByte input1UByte = UnsignedByte.of(input1);
+      final Bytes input1Bytes = BytesFactory.of(input1);
+      final UnsignedByte input1UByte = BytesFactory.unsignedOf(input1);
 
       for (short input2 = 0; input2 <= 255; input2++) {
-        final Bytes input2Bytes = Bytes.of(input2);
-        final UnsignedByte input2UByte = UnsignedByte.of(input2);
+        final Bytes input2Bytes = BytesFactory.of(input2);
+        final UnsignedByte input2UByte = BytesFactory.unsignedOf(input2);
 
-        final UnsignedByte result = UnsignedByte.of(input1Bytes.or(input2Bytes).get(0));
+        final UnsignedByte result = BytesFactory.or(input1Bytes, input2Bytes);
         trace
             .inst(opCode)
             .resultByte(result)
@@ -106,14 +98,14 @@ public class BinRt implements Module {
     opCode = UnsignedByte.of(OpCode.XOR.byteValue());
 
     for (short input1 = 0; input1 <= 255; input1++) {
-      final Bytes input1Bytes = Bytes.of(input1);
-      final UnsignedByte input1UByte = UnsignedByte.of(input1);
+      final Bytes input1Bytes = BytesFactory.of(input1);
+      final UnsignedByte input1UByte = BytesFactory.unsignedOf(input1);
 
       for (short input2 = 0; input2 <= 255; input2++) {
-        final Bytes input2Bytes = Bytes.of(input2);
-        final UnsignedByte input2UByte = UnsignedByte.of(input2);
+        final Bytes input2Bytes = BytesFactory.of(input2);
+        final UnsignedByte input2UByte = BytesFactory.unsignedOf(input2);
 
-        final UnsignedByte result = UnsignedByte.of(input1Bytes.xor(input2Bytes).get(0));
+        final UnsignedByte result = BytesFactory.xor(input1Bytes,input2Bytes);
         trace
             .inst(opCode)
             .resultByte(result)
@@ -127,8 +119,8 @@ public class BinRt implements Module {
     opCode = UnsignedByte.of(OpCode.NOT.byteValue());
 
     for (short input1 = 0; input1 <= 255; input1++) {
-      final Bytes input1Bytes = Bytes.of(input1);
-      final UnsignedByte input1UByte = UnsignedByte.of(input1);
+      final Bytes input1Bytes = BytesFactory.of(input1);
+      final UnsignedByte input1UByte = BytesFactory.unsignedOf(input1);
 
       final UnsignedByte result = UnsignedByte.of(input1Bytes.not().get(0));
       trace

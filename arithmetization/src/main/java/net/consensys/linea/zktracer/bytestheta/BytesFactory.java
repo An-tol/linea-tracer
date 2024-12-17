@@ -27,4 +27,27 @@ public class BytesFactory {
             input2Bytes2, i-> UnsignedByte.of(input1Bytes2.and(input2Bytes2).get(0))
     );
   }
+
+  private static ConcurrentHashMap<Bytes, ConcurrentHashMap<Bytes, UnsignedByte>> orCache = new ConcurrentHashMap<>();
+  public static UnsignedByte or(Bytes input1Bytes2, Bytes input2Bytes2) {
+
+    return orCache.computeIfAbsent(input1Bytes2, i -> new ConcurrentHashMap<>()).computeIfAbsent(
+            input2Bytes2, i-> UnsignedByte.of(input1Bytes2.or(input2Bytes2).get(0))
+    );
+  }
+
+  private static ConcurrentHashMap<Bytes, ConcurrentHashMap<Bytes, UnsignedByte>> xorCache = new ConcurrentHashMap<>();
+  public static UnsignedByte xor(Bytes input1Bytes2, Bytes input2Bytes2) {
+
+    return xorCache.computeIfAbsent(input1Bytes2, i -> new ConcurrentHashMap<>()).computeIfAbsent(
+            input2Bytes2, i-> UnsignedByte.of(input1Bytes2.xor(input2Bytes2).get(0))
+    );
+  }
+
+  private static ConcurrentHashMap<Bytes, UnsignedByte> notCache = new ConcurrentHashMap<>();
+  public static UnsignedByte not(Bytes input1Bytes2, Bytes input2Bytes2) {
+    return notCache.computeIfAbsent(input1Bytes2, i-> UnsignedByte.of(i.not().get(0)));
+  }
+
+
 }
