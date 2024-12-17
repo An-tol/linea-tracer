@@ -18,12 +18,15 @@ package net.consensys.linea.zktracer.module.tables.bin;
 import java.nio.MappedByteBuffer;
 import java.util.List;
 
+import lombok.extern.slf4j.Slf4j;
 import net.consensys.linea.zktracer.ColumnHeader;
+import net.consensys.linea.zktracer.bytestheta.BytesFactory;
 import net.consensys.linea.zktracer.container.module.Module;
 import net.consensys.linea.zktracer.opcode.OpCode;
 import net.consensys.linea.zktracer.types.UnsignedByte;
 import org.apache.tuweni.bytes.Bytes;
 
+@Slf4j
 public class BinRt implements Module {
   @Override
   public String moduleKey() {
@@ -53,19 +56,27 @@ public class BinRt implements Module {
     UnsignedByte opCode = UnsignedByte.of(OpCode.AND.byteValue());
 
     for (short input1 = 0; input1 <= 255; input1++) {
-      final Bytes input1Bytes = Bytes.of(input1);
-      final UnsignedByte input1UByte = UnsignedByte.of(input1);
+      final Bytes input1Bytes2 = BytesFactory.of(input1);
+      final UnsignedByte input1UByte2 = BytesFactory.unsignedOf(input1);
 
       for (short input2 = 0; input2 <= 255; input2++) {
-        final Bytes input2Bytes = Bytes.of(input2);
-        final UnsignedByte input2UByte = UnsignedByte.of(input2);
+//        final Bytes input2Bytes = Bytes.of(input2);
+//        final UnsignedByte input2UByte = UnsignedByte.of(input2);
+        final Bytes input2Bytes2 = BytesFactory.of(input2);
+        final UnsignedByte input2UByte2 = BytesFactory.unsignedOf(input2);
+        final UnsignedByte result = BytesFactory.and(input1Bytes2,input2Bytes2);
+//        if(!(input2Bytes2.equals(input2Bytes)||input2UByte2.equals(input2UByte))){
+//          log.error("here");
+//        }
+//
 
-        final UnsignedByte result = UnsignedByte.of(input1Bytes.and(input2Bytes).get(0));
+//
+//        final UnsignedByte result = BytesFactory.unsignedOf(input1Bytes.and(input2Bytes).get(0));
         trace
             .inst(opCode)
             .resultByte(result)
-            .inputByte1(input1UByte)
-            .inputByte2(input2UByte)
+            .inputByte1(input1UByte2)
+            .inputByte2(input2UByte2)
             .validateRow();
       }
     }
