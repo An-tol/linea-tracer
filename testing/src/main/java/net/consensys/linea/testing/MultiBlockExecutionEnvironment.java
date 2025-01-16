@@ -71,7 +71,7 @@ public class MultiBlockExecutionEnvironment {
 
   public void run() {
     ReplayExecutionEnvironment.builder()
-        .zkTracer(new ZkTracer(ToyExecutionEnvironmentV2.CHAIN_ID))
+        .zkTracer(new ZkTracer())
         .useCoinbaseAddressFromBlockHeader(true)
         .transactionProcessingResultValidator(this.transactionProcessingResultValidator)
         .build()
