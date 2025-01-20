@@ -88,7 +88,7 @@ public class ReplayTestTools {
       throw new RuntimeException(e);
     }
     ReplayExecutionEnvironment.builder()
-        .zkTracer(new ZkTracer())
+        .zkTracer(new ZkTracer(chainId))
         .txResultChecking(resultChecking)
         .build()
         .replay(chainId, new BufferedReader(new InputStreamReader(stream)));
